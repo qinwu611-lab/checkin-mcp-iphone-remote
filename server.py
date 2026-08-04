@@ -3,7 +3,7 @@
 
 部署：
     pip install fastmcp-slim requests
-    python server.py  # 监听 0.0.0.0:8000
+    python server.py  # 监听 0.0.0.0:$PORT
 
 注意：mcp.run() 必须在所有 @mcp.tool() 定义之后！
 """
@@ -14,6 +14,7 @@ import subprocess
 
 ORIGIN = os.environ.get("ORIGIN_API", "http://127.0.0.1:9000")  # 后端地址
 BARK_KEY = os.environ.get("BARK_API_KEY", "")
+PORT = int(os.environ.get("PORT", 8000))
 
 mcp = FastMCP("查岗MCP")
 
@@ -102,4 +103,4 @@ def send_iphone_cmd(cmd: str = "测试") -> str:
 
 if __name__ == "__main__":
     # 必须在所有 @mcp.tool() 定义之后调用，否则后面的工具不会注册！
-    mcp.run(transport="http", host="0.0.0.0", port=8000)
+    mcp.run(transport="http", host="0.0.0.0", port=PORT)
